@@ -1,12 +1,16 @@
 import os
+from pathlib import Path
+import sys
 
-from compile_utils import _remove_files_conflicting_with_decompile, _replace_renamed_files
-from decompilation_method import S4PyDecompilationMethod
+ROOT = str(Path(__file__).resolve().parents[0])
+sys.path.append(ROOT)
+
+from Utilities.compile_utils import _remove_files_conflicting_with_decompile, _replace_renamed_files
+from Utilities.decompilation_method import S4PyDecompilationMethod
 from settings import custom_scripts_for_decompile_source, game_folder, decompile_method_name, custom_scripts_for_decompile_destination, should_decompile_ea_scripts, should_decompile_custom_scripts
 
-
 def _decompile_using_unpyc3(decompile_ea_scripts: bool=False, decompile_custom_scripts: bool=False):
-    output_folder = 'EA'
+    output_folder = os.path.join(ROOT, 'EA')
     if not os.path.exists(output_folder):
         os.mkdir(output_folder)
 
@@ -23,6 +27,9 @@ def _decompile_using_unpyc3(decompile_ea_scripts: bool=False, decompile_custom_s
             gameplay_folder_game = os.path.join(game_folder, 'Python')
         else:
             gameplay_folder_game = os.path.join(game_folder, 'Game', 'Bin', 'Python')
+
+        print(f'gameplay_folder_data: {gameplay_folder_data}')
+        print(f'gameplay_folder_game: {gameplay_folder_game}')
 
         Unpyc3PyDecompiler.extract_folder(output_folder, gameplay_folder_data)
         Unpyc3PyDecompiler.extract_folder(output_folder, gameplay_folder_game)
