@@ -21,7 +21,6 @@ from sims4communitylib.utils.sims.common_trait_utils import CommonTraitUtils
 log = CommonLogRegistry().register_log(ModInfo.get_identity(), 's4cl_commands')
 log.enable()
 
-
 @CommonConsoleCommand(ModInfo.get_identity(), 's4clib.the_mother_calls', 'Invokes the mothers call.', show_with_help_command=False)
 def _common_the_mother_calls(output: CommonConsoleCommandOutput):
     output('She calls and you must listen! Who shall answer the call?')
